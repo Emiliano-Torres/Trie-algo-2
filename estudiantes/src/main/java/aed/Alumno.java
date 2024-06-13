@@ -2,13 +2,13 @@ package aed;
 
 public class Alumno {
     
-    private int incripciones;
+    private int inscripciones;
 
     public int obtenerInscripciones() {
-        return incripciones;
+        return inscripciones;
     }
 
     public void aumentarInscripciones() {
-        incripciones +=1 ;
+        inscripciones +=1 ;
     }
 }
