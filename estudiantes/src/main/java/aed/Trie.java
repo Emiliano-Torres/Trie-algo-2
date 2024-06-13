@@ -1,13 +1,13 @@
 package aed;
 
-public class Trie{
+public class Trie<T>{
 
-    private Nodo_Trie raiz;
+    private Nodo_Trie<T> raiz;
 
-    private class Nodo_Trie {
+    private class Nodo_Trie<T> {
 
         // Array para los hijos (256 signos del codigo ASCII)
-        private Nodo_Trie[] hijos;
+        private Nodo_Trie<T>[] hijos;
 
         // Significado del nodo
         private T significado;
@@ -20,7 +20,7 @@ public class Trie{
 
         // Métodos para obtener y establecer hijos y la marca de fin de palabra
 
-        public Nodo_Trie[] obtenerHijos() {
+        public Nodo_Trie<T>[] obtenerHijos() {
            return hijos;
         }
 
@@ -34,7 +34,7 @@ public class Trie{
 
         // Método para verificar si tiene hijos
         public boolean tieneHijos() {
-           for (Nodo_Trie hijo : hijos) {
+           for (Nodo_Trie<T> hijo : hijos) {
                if (hijo != null) {
                    return true;
                }
@@ -45,16 +45,16 @@ public class Trie{
 
     // Constructor
     public Trie() {
-       raiz = new Nodo_Trie();
+       raiz = new Nodo_Trie<T>();
     }
 
     // Método para agregar una palabra
     public void agregar(String palabra, T significado) {
-        Nodo_Trie actual = raiz;
+        Nodo_Trie<T> actual = raiz;
         for (char c : palabra.toCharArray()) {
             int index = c; // El índice es el valor ASCII del carácter
             if (actual.obtenerHijos()[index] == null) {
-                actual.obtenerHijos()[index] = new Nodo_Trie();
+                actual.obtenerHijos()[index] = new Nodo_Trie<T>();
             }
             actual = actual.obtenerHijos()[index];
         } 
@@ -63,7 +63,7 @@ public class Trie{
 
     // Método para verificar si una palabra pertenece al trie
     public boolean pertenece(String palabra) {
-        Nodo_Trie actual = raiz;
+        Nodo_Trie<T> actual = raiz;
         for (char c : palabra.toCharArray()) {
             int index = c; // El índice es el valor ASCII del carácter
             if (actual.obtenerHijos()[index] == null) {
@@ -79,7 +79,7 @@ public class Trie{
         borrarRecursivo(raiz, palabra, 0);
     }
 
-    public void borrarRecursivo(Nodo_Trie actual, String palabra, int index) {
+    public void borrarRecursivo(Nodo_Trie<T> actual, String palabra, int index) {
         if (index == palabra.length()) {
             if (actual.obtenerSignificado() != null) {
                 actual.definirSignificado(null);
@@ -89,7 +89,7 @@ public class Trie{
 
         char c = palabra.charAt(index);
         int charIndex = c; // El índice es el valor ASCII del carácter
-        Nodo_Trie nodo = actual.obtenerHijos()[charIndex];
+        Nodo_Trie<T> nodo = actual.obtenerHijos()[charIndex];
         if (nodo == null){
             return; // La palabra no está en el Trie
         }
