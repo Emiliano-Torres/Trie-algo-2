@@ -53,7 +53,7 @@ public class Trie<T>{
         Nodo_Trie<T> actual = raiz;
         for (char c : palabra.toCharArray()) { 
             // El metodo toCharArray tiene complejidad O(n) debido a que el metodo funciona de la siguiente manera:
-            // Primerp accede a cada caracter (acceder a cada carácter de la cadena original para copiarlo en el nuevo array y acceder a un caracter es O(1))
+            // Primero accede a cada caracter (acceder a cada carácter de la cadena original para copiarlo en el nuevo array y acceder a un caracter es O(1))
             // Luego, el método recorre todos los caracteres de la cadena en un bucle, copiándolos uno por uno en el nuevo array, ese bucle se repite n veces.
             // Finalmente, crear un nuevo array de caracteres también es una operación O(n) porque la memoria tiene que ser asignada para n elementos.
             // Si juntas todo te queda complejidad de O(n).
@@ -76,6 +76,9 @@ public class Trie<T>{
             }
             actual = actual.obtenerHijos()[index];
         }
+        if (actual.obtenerSignificado() == null) {
+            return false;
+        }
         return true;
     }
 
@@ -85,10 +88,10 @@ public class Trie<T>{
     }
 
     public void borrarRecursivo(Nodo_Trie<T> actual, String palabra, int index) {
-        if (index == palabra.length()) {
+        if (index == palabra.length() - 1) {
             if (actual.obtenerSignificado() != null) {
                 actual.definirSignificado(null);
-            }
+            }                                                                                                          
             return;
         }
 
