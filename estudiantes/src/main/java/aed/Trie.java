@@ -97,7 +97,7 @@ public class Trie<T>{
         Nodo_Trie<T> ultimoImportante = raiz;
         
         char u = palabra.charAt(0);
-        int ultimaDireccion = c;
+        int ultimaDireccion = u;
 
         for (int i=0; i < palabra.length(); i++) {
             char c = palabra.charAt(i);
