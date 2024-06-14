@@ -41,6 +41,16 @@ public class Trie<T>{
            }
            return false;
         }
+
+        public int cantidadDeHijos() {
+            int res = 0;
+            for (Nodo_Trie<T> hijo : hijos) {
+                if (hijo != null) {
+                    res = res + 1;
+                }
+            }
+            return res;
+         }
     }
 
     // Constructor
@@ -82,32 +92,28 @@ public class Trie<T>{
         return true;
     }
 
-    // Método para borrar una palabra
     public void borrar(String palabra) {
-        borrarRecursivo(raiz, palabra, 0);
-    }
+        Nodo_Trie<T> actual = raiz;
+        Nodo_Trie<T> ultimoImportante = raiz;
+        
+        char u = palabra.charAt(0);
+        int ultimaDireccion = c;
 
-    public void borrarRecursivo(Nodo_Trie<T> actual, String palabra, int index) {
-        if (index == palabra.length() - 1) {
-            if (actual.obtenerSignificado() != null) {
-                actual.definirSignificado(null);
-            }                                                                                                          
-            return;
+        for (int i=0; i < palabra.length(); i++) {
+            char c = palabra.charAt(i);
+            int charIndex = c; // El índice es el valor ASCII del carácter
+
+            if (actual.cantidadDeHijos() > 1 || actual.significado != null){
+                ultimoImportante = actual;
+                ultimaDireccion = charIndex;
+            }
+            actual = actual.obtenerHijos()[charIndex];
         }
 
-        char c = palabra.charAt(index);
-        int charIndex = c; // El índice es el valor ASCII del carácter
-        Nodo_Trie<T> nodo = actual.obtenerHijos()[charIndex];
-        if (nodo == null){
-            return; // La palabra no está en el Trie
-        }
-
-        borrarRecursivo(nodo, palabra, index + 1);
-
-        // Eliminar el nodo hijo si es redundante y no es el final de una palabra
-        if (nodo.obtenerSignificado() == null && !nodo.tieneHijos()) {
-            actual.obtenerHijos()[index] = null;
+        if (actual.tieneHijos()){
+            actual.significado = null;
+        } else {
+            ultimoImportante.obtenerHijos()[ultimaDireccion] = null;
         }
     }
-
 }
