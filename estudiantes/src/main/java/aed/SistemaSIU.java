@@ -2,6 +2,9 @@ package aed;
 
 public class SistemaSIU {
 
+    public Trie<Alumno> alumnos;
+    public Trie <Carrera> carreras;
+
     enum CargoDocente{
         AY2,
         AY1,
@@ -10,7 +13,10 @@ public class SistemaSIU {
     }
 
     public SistemaSIU(InfoMateria[] infoMaterias, String[] libretasUniversitarias){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        for (String libreta : libretasUniversitarias){
+            Alumno alumno = new Alumno(libreta);
+            this.alumnos.agregar(libreta, alumno);
+        } 
     }
 
     public void inscribir(String estudiante, String carrera, String materia){
