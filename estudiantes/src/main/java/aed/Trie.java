@@ -93,7 +93,7 @@ public class Trie<T>{
     }
 
     // Método para obtener el significado de unaa palabra en el trie
-    public T obtenerSignificado(String palabra) {
+    public T obtener(String palabra) {
         Nodo_Trie<T> actual = raiz;
         for (char c : palabra.toCharArray()) {
             int index = c; // El índice es el valor ASCII del carácter
