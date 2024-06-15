@@ -1,6 +1,8 @@
+package aed;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;import Junit.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
 public class TrieTest {
     Trie<Integer> nuevoTrie = new Trie();
@@ -9,6 +11,6 @@ public class TrieTest {
     void test_agregar(){
         
         nuevoTrie.agregar("nueve", 9);
-        assertEquals(nuevoTrie.obtener("nueve"), 9); 
+        assertEquals(nuevoTrie.obtenerSignificado("nueve"), 9); 
     }
 }

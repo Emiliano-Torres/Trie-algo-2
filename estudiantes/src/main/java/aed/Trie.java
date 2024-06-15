@@ -92,6 +92,16 @@ public class Trie<T>{
         return true;
     }
 
+    // Método para obtener el significado de unaa palabra en el trie
+    public T obtenerSignificado(String palabra) {
+        Nodo_Trie<T> actual = raiz;
+        for (char c : palabra.toCharArray()) {
+            int index = c; // El índice es el valor ASCII del carácter
+            actual = actual.obtenerHijos()[index];
+        }
+        return actual.obtenerSignificado();
+    }
+
     public void borrar(String palabra) {
         Nodo_Trie<T> actual = raiz;
         Nodo_Trie<T> ultimoImportante = raiz;
