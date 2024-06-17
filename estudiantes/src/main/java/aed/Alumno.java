@@ -29,4 +29,8 @@ public class Alumno {
     public String obtenerLU() {
         return LU;
     }
+
+    public void reducirInscripciones() {
+        inscripciones -=1 ;
+    }
 }
