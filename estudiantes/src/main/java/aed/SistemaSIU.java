@@ -55,11 +55,24 @@ public class SistemaSIU {
 
     public void agregarDocente(CargoDocente cargo, String carrera, String materia){
         Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
-        int[] profesores = materias.obtener(materia).getProfesores();  	    
+        int[] profesores = materias.obtener(materia).getProfesores();
+        if (cargo==CargoDocente.AY2) {
+            profesores[3]++;
+        }
+        if (cargo==CargoDocente.AY1) {
+            profesores[2]++;
+        }
+        if (cargo==CargoDocente.JTP) {
+            profesores[1]++;
+        }
+        if (cargo==CargoDocente.PROF) {
+            profesores[0]++;
+        }	    
     }
 
     public int[] plantelDocente(String materia, String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
+        return materias.obtener(materia).getProfesores();
     }
 
     public void cerrarMateria(String materia, String carrera){

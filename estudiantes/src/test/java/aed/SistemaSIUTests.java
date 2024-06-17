@@ -82,7 +82,7 @@ public class SistemaSIUTests {
         assertEquals(4, sistema.inscriptos("Análisis II", "Ciencias de Datos"));
         assertEquals(4, sistema.inscriptos("Matemática 3", "Ciencias Físicas"));
     }
-
+    
     void cargar_docentes(SistemaSIU sistema, int ay2, int ay1, int jtps, int profes){
         for (int i = 0; i < ay2; i++){
             sistema.agregarDocente(SistemaSIU.CargoDocente.AY2, "Ciencias de Datos", "Algoritmos1");
