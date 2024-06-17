@@ -256,7 +256,7 @@ public class SistemaSIUTests {
     void cerrar_materia(){
         SistemaSIU sistema = new SistemaSIU(infoMaterias, estudiantes);
         realizar_inscripciones(sistema);
-
+        
         sistema.cerrarMateria("Algoritmos1", "Ciencias de Datos");
         assertEquals(1, sistema.materiasInscriptas(estudiantes[0]));
         assertEquals(1, sistema.materiasInscriptas(estudiantes[1]));
