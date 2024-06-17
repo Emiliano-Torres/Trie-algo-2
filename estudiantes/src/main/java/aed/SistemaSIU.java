@@ -94,12 +94,13 @@ public class SistemaSIU {
 
     public int cupo(String materia, String carrera) {
         int[] plantelDocente = plantelDocente(materia, carrera);
-        plantelDocente[0] = plantelDocente[0]*250;
-        plantelDocente[1] = plantelDocente[1]*100;
-        plantelDocente[2] = plantelDocente[2]*20;
-        plantelDocente[3] = 30*plantelDocente[3];
-        int res = plantelDocente[0];
-        for (int i : plantelDocente) {
+        int[] array = new int[4];
+        array[0] = plantelDocente[0]*250;
+        array[1] = plantelDocente[1]*100;
+        array[2] = plantelDocente[2]*20;
+        array[3] = 30*plantelDocente[3];
+        int res = array[0];
+        for (int i : array) {
             if (i < res) {
                 res = i;
             }
