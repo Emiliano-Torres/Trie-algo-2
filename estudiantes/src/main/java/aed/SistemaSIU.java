@@ -85,13 +85,17 @@ public class SistemaSIU {
         return cant_alumnos;
     }
 
+    // O(|carrera|+|materia|)
     public boolean excedeCupo(String materia, String carrera){
+        //O(|carrera|+|materia|)
         int cant_alumnos = inscriptos(materia, carrera);
+        //O(|carrera|+|materia|)
         int cupo = cupo(materia, carrera);
         return cant_alumnos > cupo;
 
     }
 
+    // O(|carrera|+|materia| + x) con x siendo una constaste acotada. Entonces eso es igual a O(|c|+|m|)
     public int cupo(String materia, String carrera) {
         int[] plantelDocente = plantelDocente(materia, carrera);
         int[] array = new int[4];
@@ -117,7 +121,9 @@ public class SistemaSIU {
         return objeto_carrera.getMaterias().toStringArray();
     }
 
+    // O(1)
     public int materiasInscriptas(String estudiante){
+        // O(1) pues la LU de cada estudiante esta acotada
         Alumno alumno = this.alumnos.obtener(estudiante);
         return alumno.obtenerInscripciones();
     }
