@@ -75,11 +75,12 @@ public class SistemaSIU {
     }
 
     public String[] carreras(){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        return carreras.toStringArray();
     }
 
     public String[] materias(String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        Carrera objeto_carrera = carreras.obtener(carrera);
+        return objeto_carrera.getMaterias().toStringArray();
     }
 
     public int materiasInscriptas(String estudiante){

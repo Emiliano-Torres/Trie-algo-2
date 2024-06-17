@@ -126,4 +126,35 @@ public class Trie<T>{
             ultimoImportante.obtenerHijos()[ultimaDireccion] = null;
         }
     }
+
+    public String[] toStringArray() {
+        Lista_enlazada<String> lista = new Lista_enlazada();
+        String camino = "";
+        toListRecursivo(raiz, lista, camino);
+        
+        String[] res = new String[lista.longitud()];
+        for (int i=0; i<lista.longitud(); i++){
+            String elemento = (String) lista.obtener(i);
+            res[i] = elemento;
+        }
+        
+        return res;
+    } 
+
+    private void toListRecursivo(Nodo_Trie<T> nodo, Lista_enlazada<String> lista, String camino){
+        if (nodo.significado != null){
+            lista.agregarAtras(camino);
+        }
+        for (int i=0; i<256; i++){
+            if (nodo.obtenerHijos()[i] != null){
+                Nodo_Trie<T> hijo = nodo.obtenerHijos()[i];
+                char caracter = (char) i;
+                String nuevo_camino = camino + caracter;
+                toListRecursivo(hijo, lista, nuevo_camino);
+            }
+        }
+    }
+
+
+
 }

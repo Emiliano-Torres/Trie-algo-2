@@ -6,5 +6,5 @@ public class Carrera {
 
     public Trie<Materia> getMaterias(){
         return this.materias;
-    } 
+    }
 }
