@@ -80,7 +80,9 @@ public class SistemaSIU {
     }
 
     public int inscriptos(String materia, String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
+        int cant_alumnos = materias.obtener(materia).getAlumnos().longitud();
+        return cant_alumnos;
     }
 
     public boolean excedeCupo(String materia, String carrera){
