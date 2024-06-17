@@ -19,25 +19,28 @@ public class SistemaSIU {
             this.alumnos.agregar(libreta, alumno);
         } 
         //O(Sumatoria desde 1 a |M| de (Sumatoria desde 1 a |C| de (|c|+|Mc|) 
-        for (InfoMateria infomateria : infoMaterias){
-            Materia materia = new Materia(infomateria);
+        for (int i =0; i<infoMaterias.length;i++){
+            Materia materia = new Materia(infoMaterias[i]);
+            Lista_enlazada<Carrera> lista_carreras = materia.getCarreras();
             /*O(Sumatoria desde 1 a |Nm| de (|c|+|Mc|) pero nos quedamos con esta 
             O(Sumatoria desde 1 a |C| de (|c|+|Mc|  porque es cota superior,
             porque vale esto |Carreras| >= |Nm|)*/
-            for (ParCarreraMateria par : infomateria.getParesCarreraMateria()) {
+            for (ParCarreraMateria par : infoMaterias[i].getParesCarreraMateria()) {
                 //tomamos como peor caso que la carrera no este en el sistema
                 //O(|c|+|Mc|)              
                 if (carreras.pertenece(par.getCarrera())) {
 
                     Carrera carrera = carreras.obtener(par.getCarrera());
                     carrera.getMaterias().agregar(par.getNombreMateria(),materia);
-
+                    lista_carreras.agregarAdelante(carrera);
+                    
                 }
                 else{
 
                     Carrera carrera = new Carrera();
                     this.carreras.agregar(par.getCarrera(),carrera);
                     carrera.getMaterias().agregar(par.getNombreMateria(),materia);
+                    lista_carreras.agregarAdelante(carrera);
                 }
                 }
         }
@@ -85,20 +88,24 @@ public class SistemaSIU {
     }
     // O(|carrera| + |nombre de la materia|)
     public void cerrarMateria(String materia, String carrera){
-        // O(|carrera| + |nombre de la materia|)
-        InfoMateria infomateria = this.carreras.obtener(carrera).getMaterias().obtener(materia).getInfoMateria();
-        // O(|carrera| + |nombre de la materia|)
-        Lista_enlazada<String> lista = this.carreras.obtener(carrera).getMaterias().obtener(materia).getAlumnos();
-        // O(Sumatoria de O(1), por la cantidad de estudiantes en la materia Em)
+        //O(|carrera| + |nombre de la materia|)
+        Materia materia_a_borrar=this.carreras.obtener(carrera).getMaterias().obtener(materia);
+        //O(1)
+        ParCarreraMateria[] Lista_nombres = materia_a_borrar.getInfoMateria().getParesCarreraMateria(); //algo1
+        //O(1)
+        Lista_enlazada<String> lista = materia_a_borrar.getAlumnos();
+        //O(Em)
         for (int i = 0; i < lista.longitud(); i++){
             // O(1)
             String lu = (String)lista.obtener(i);
             alumnos.obtener(lu).reducirInscripciones();
         }
-        // O(Sumatoria de (|carrera| + |nombre de la materia|) |Nm| veces))
-        for (ParCarreraMateria par : infomateria.getParesCarreraMateria()){
-            // O(|carrera| + |nombre de la materia|)
-            carreras.obtener(par.getCarrera()).getMaterias().borrar(par.getNombreMateria());
+        //O(1)
+        Lista_enlazada<Carrera> carreras_donde_borrar= materia_a_borrar.getCarreras();
+        // Sumartoria para todo n en Nm de |n|
+        for (int i=0; i<carreras_donde_borrar.longitud(); i++){
+            Carrera carrera_actual = carreras_donde_borrar.obtener(i);
+            carrera_actual.getMaterias().borrar(Lista_nombres[ Lista_nombres.length-1-i].getNombreMateria());             
         } 
     }
 
