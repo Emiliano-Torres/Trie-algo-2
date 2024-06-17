@@ -127,29 +127,50 @@ public class Trie<T>{
         }
     }
 
+    // O(Sumatoria desde 1 a |A| de (|string|)
+    // Con "A" el Trie y "string" el camino (clave)
     public String[] toStringArray() {
+        // O(1)
         Lista_enlazada<String> lista = new Lista_enlazada();
+        // O(1)
         String camino = "";
+        
+        // O(Sumatoria desde 1 a |A| de (|string|)
         toListRecursivo(raiz, lista, camino);
         
+        // O(1)
         String[] res = new String[lista.longitud()];
+        
+        // O(lista.longitud())
         for (int i=0; i<lista.longitud(); i++){
+            // O(1)
             String elemento = (String) lista.obtener(i);
+            // O(1)
             res[i] = elemento;
         }
         
         return res;
     } 
 
+    // O(Sumatoria desde 1 a |A| de (|string|)
     private void toListRecursivo(Nodo_Trie<T> nodo, Lista_enlazada<String> lista, String camino){
+        // O(1)
         if (nodo.significado != null){
+            // O(1)
             lista.agregarAtras(camino);
         }
+
+        // ?
         for (int i=0; i<256; i++){
+            // ?
             if (nodo.obtenerHijos()[i] != null){
+                // O(1)
                 Nodo_Trie<T> hijo = nodo.obtenerHijos()[i];
+                // O(1)
                 char caracter = (char) i;
+                // O(1)
                 String nuevo_camino = camino + caracter;
+                // ?
                 toListRecursivo(hijo, lista, nuevo_camino);
             }
         }
