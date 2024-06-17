@@ -43,7 +43,7 @@ public class SistemaSIU {
     }
 
     public void inscribir(String estudiante, String carrera, String materia){
-        //O(|carrera|+|materia|+6) = O(|carrera|+|materia|)
+        //O(|carrera|+|materia|+7) = O(|carrera|+|materia|)
         Alumno inscripto=this.alumnos.obtener(estudiante);
         inscripto.aumentarInscripciones();
 
@@ -54,42 +54,85 @@ public class SistemaSIU {
     }
 
     public void agregarDocente(CargoDocente cargo, String carrera, String materia){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
+        int[] profesores = materias.obtener(materia).getProfesores();
+        if (cargo==CargoDocente.AY2) {
+            profesores[3]++;
+        }
+        if (cargo==CargoDocente.AY1) {
+            profesores[2]++;
+        }
+        if (cargo==CargoDocente.JTP) {
+            profesores[1]++;
+        }
+        if (cargo==CargoDocente.PROF) {
+            profesores[0]++;
+        }	    
     }
 
     public int[] plantelDocente(String materia, String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
+        return materias.obtener(materia).getProfesores();
     }
 
     public void cerrarMateria(String materia, String carrera){
+        // O(|carrera| + |nombre de la materia|)
         InfoMateria infomateria = this.carreras.obtener(carrera).getMaterias().obtener(materia).getInfoMateria();
-        Lista_enlazada lista = this.carreras.obtener(carrera).getMaterias().obtener(materia).getAlumnos();
+        // O(|carrera| + |nombre de la materia|)
+        Lista_enlazada<String> lista = this.carreras.obtener(carrera).getMaterias().obtener(materia).getAlumnos();
+        // O(Sumatoria de O(1), por la cantidad de estudiantes en la materia Em)
         for (int i = 0; i < lista.longitud(); i++){
+            // O(1)
             String lu = (String)lista.obtener(i);
             alumnos.obtener(lu).reducirInscripciones();
         }
+        // O(Sumatoria de (|carrera| + |nombre de la materia|) |Nm| veces))
         for (ParCarreraMateria par : infomateria.getParesCarreraMateria()){
+            // O(|carrera| + |nombre de la materia|)
             carreras.obtener(par.getCarrera()).getMaterias().borrar(par.getNombreMateria());
-        }
+        } 
     }
 
     public int inscriptos(String materia, String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
+        int cant_alumnos = materias.obtener(materia).getAlumnos().longitud();
+        return cant_alumnos;
     }
 
     public boolean excedeCupo(String materia, String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        int cant_alumnos = inscriptos(materia, carrera);
+        int cupo = cupo(materia, carrera);
+        return cant_alumnos > cupo;
+
+    }
+
+    public int cupo(String materia, String carrera) {
+        int[] plantelDocente = plantelDocente(materia, carrera);
+        int[] array = new int[4];
+        array[0] = plantelDocente[0]*250;
+        array[1] = plantelDocente[1]*100;
+        array[2] = plantelDocente[2]*20;
+        array[3] = 30*plantelDocente[3];
+        int res = array[0];
+        for (int i : array) {
+            if (i < res) {
+                res = i;
+            }
+        }
+        return res;
     }
 
     public String[] carreras(){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        return carreras.toStringArray();
     }
 
     public String[] materias(String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        Carrera objeto_carrera = carreras.obtener(carrera);
+        return objeto_carrera.getMaterias().toStringArray();
     }
 
     public int materiasInscriptas(String estudiante){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        Alumno alumno = this.alumnos.obtener(estudiante);
+        return alumno.obtenerInscripciones();
     }
 }
