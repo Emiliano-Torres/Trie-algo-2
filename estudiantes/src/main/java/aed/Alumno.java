@@ -25,6 +25,10 @@ public class Alumno {
         inscripciones +=1 ;
     }
 
+    public void reducirInscripciones() {
+        inscripciones -=1 ;
+    }
+
     // Metodo para obtener la L.U del alumno
     public String obtenerLU() {
         return LU;

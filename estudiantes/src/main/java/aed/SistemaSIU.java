@@ -43,7 +43,7 @@ public class SistemaSIU {
     }
 
     public void inscribir(String estudiante, String carrera, String materia){
-        //O(|carrera|+|materia|+7) = O(|carrera|+|materia|)
+        //O(|carrera|+|materia|+6) = O(|carrera|+|materia|)
         Alumno inscripto=this.alumnos.obtener(estudiante);
         inscripto.aumentarInscripciones();
 
@@ -54,29 +54,23 @@ public class SistemaSIU {
     }
 
     public void agregarDocente(CargoDocente cargo, String carrera, String materia){
-        Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
-        int[] profesores = materias.obtener(materia).getProfesores();
-        if (cargo==CargoDocente.AY2) {
-            profesores[3]++;
-        }
-        if (cargo==CargoDocente.AY1) {
-            profesores[2]++;
-        }
-        if (cargo==CargoDocente.JTP) {
-            profesores[1]++;
-        }
-        if (cargo==CargoDocente.PROF) {
-            profesores[0]++;
-        }	    
+        throw new UnsupportedOperationException("Método no implementado aún");	    
     }
 
     public int[] plantelDocente(String materia, String carrera){
-        Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
-        return materias.obtener(materia).getProfesores();
+        throw new UnsupportedOperationException("Método no implementado aún");	    
     }
 
     public void cerrarMateria(String materia, String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        InfoMateria infomateria = this.carreras.obtener(carrera).getMaterias().obtener(materia).getInfoMateria();
+        Lista_enlazada lista = this.carreras.obtener(carrera).getMaterias().obtener(materia).getAlumnos();
+        for (int i = 0; i < lista.longitud(); i++){
+            String lu = (String)lista.obtener(i);
+            alumnos.obtener(lu).reducirInscripciones();
+        }
+        for (ParCarreraMateria par : infomateria.getParesCarreraMateria()){
+            carreras.obtener(par.getCarrera()).getMaterias().borrar(par.getNombreMateria());
+        }
     }
 
     public int inscriptos(String materia, String carrera){
