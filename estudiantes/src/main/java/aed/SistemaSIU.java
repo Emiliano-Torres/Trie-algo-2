@@ -43,7 +43,7 @@ public class SistemaSIU {
     }
 
     public void inscribir(String estudiante, String carrera, String materia){
-        //O(|carrera|+|materia|+6) = O(|carrera|+|materia|)
+        //O(|carrera|+|materia|+7) = O(|carrera|+|materia|)
         Alumno inscripto=this.alumnos.obtener(estudiante);
         inscripto.aumentarInscripciones();
 
