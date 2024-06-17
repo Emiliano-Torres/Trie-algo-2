@@ -149,8 +149,12 @@ public class Trie<T>{
             res[i] = elemento;
         }
         
+        // O(1)
         return res;
-    } 
+        // Finalmente O(lista.longitud() + Sumatoria desde 1 a |A| de (|string|) = O (Sumatoria desde 1 a |A| de (|string|)
+    }
+    
+
 
     // O(Sumatoria desde 1 a |A| de (|string|)
     private void toListRecursivo(Nodo_Trie<T> nodo, Lista_enlazada<String> lista, String camino){
@@ -160,9 +164,9 @@ public class Trie<T>{
             lista.agregarAtras(camino);
         }
 
-        // ?
+        // O(Sumatoria desde 1 a |A| de (|string|)
         for (int i=0; i<256; i++){
-            // ?
+            // O(Sumatoria desde 1 a |A| de (|string|) = O(Sumatoria desde 1 a |A| de (|string|)
             if (nodo.obtenerHijos()[i] != null){
                 // O(1)
                 Nodo_Trie<T> hijo = nodo.obtenerHijos()[i];
@@ -170,12 +174,13 @@ public class Trie<T>{
                 char caracter = (char) i;
                 // O(1)
                 String nuevo_camino = camino + caracter;
-                // ?
+                // O(Sumatoria desde 1 a |B| de (|sub-string|)
+                // Con "B" el "Sub-Trie" y "sub-string" el camino restante (parte de la clave que falta)
+                // Nótese que |B| (osea la cantidad de claves en el subconjunto), y |sub-string| se achican a lo largo de la recursión
                 toListRecursivo(hijo, lista, nuevo_camino);
             }
         }
     }
-
 
 
 }
