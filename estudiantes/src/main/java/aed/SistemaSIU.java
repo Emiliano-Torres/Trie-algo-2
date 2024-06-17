@@ -43,7 +43,7 @@ public class SistemaSIU {
     }
 
     public void inscribir(String estudiante, String carrera, String materia){
-        throw new UnsupportedOperationException("Método no implementado aún");
+        
     }
 
     public void agregarDocente(CargoDocente cargo, String carrera, String materia){

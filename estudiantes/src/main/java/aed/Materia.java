@@ -9,5 +9,13 @@ public class Materia {
         this.info=info;
         alumnos= new Lista_enlazada<>();
         
-    } 
+    }
+    
+    public Lista_enlazada<Alumno> getAlumnos(){
+        return this.alumnos;
+    }
+    public int[] getProfesores(){
+        return this.profesores;        
+    }
+    
 }
