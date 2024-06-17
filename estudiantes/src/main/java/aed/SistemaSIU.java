@@ -139,11 +139,21 @@ public class SistemaSIU {
         return res;
     }
     
+    // O(Sumatoria desde 1 a |C| de (|c|)
+    // Con "C" el conjunto de carreras y "c" el nombre (String) de una (cada) carrera.
     public String[] carreras(){
+        // O(Sumatoria desde 1 a |C| de (|c|)
+        // Ver el método ".toStringArray()" de la clase Trie.
         return carreras.toStringArray();
     }
+
+    // O(|c| + Sumatoria desde 1 a |Mc| de (|mc|)
+    // Con "c" el nombre (String) de la carrera pasada por parámetro, "Mc" el conjunto de materias correspondiente a dicha materia, y "mc" el nombre (string) de una (cada) materia.
     public String[] materias(String carrera){
+        // obtener(c) tiene O(|c|)
         Carrera objeto_carrera = carreras.obtener(carrera);
+        // O(Sumatoria desde 1 a |Mc| de (|mc|)
+        // Ver el método ".toStringArray()" de la clase Trie.
         return objeto_carrera.getMaterias().toStringArray();
     }
 
