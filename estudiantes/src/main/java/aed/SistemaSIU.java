@@ -76,7 +76,15 @@ public class SistemaSIU {
     }
 
     public void cerrarMateria(String materia, String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        InfoMateria infomateria = this.carreras.obtener(carrera).getMaterias().obtener(materia).getInfoMateria();
+        Lista_enlazada<String> lista = this.carreras.obtener(carrera).getMaterias().obtener(materia).getAlumnos();
+        for (int i = 0; i < lista.longitud(); i++){
+            String lu = (String)lista.obtener(i);
+            alumnos.obtener(lu).reducirInscripciones();
+        }
+        for (ParCarreraMateria par : infomateria.getParesCarreraMateria()){
+            carreras.obtener(par.getCarrera()).getMaterias().borrar(par.getNombreMateria());
+        } 
     }
 
     public int inscriptos(String materia, String carrera){
