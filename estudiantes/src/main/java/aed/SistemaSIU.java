@@ -2,8 +2,8 @@ package aed;
 
 public class SistemaSIU {
 
-    public Trie<Alumno> alumnos;
-    public Trie <Carrera> carreras;
+    public Trie<Alumno> alumnos = new Trie<>();
+    public Trie <Carrera> carreras = new Trie<>();
 
     enum CargoDocente{
         AY2,
@@ -43,7 +43,14 @@ public class SistemaSIU {
     }
 
     public void inscribir(String estudiante, String carrera, String materia){
-        
+        //O(|carrera|+|materia|+6) = O(|carrera|+|materia|)
+        Alumno inscripto=this.alumnos.obtener(estudiante);
+        inscripto.aumentarInscripciones();
+
+        //O(|carrera|+|materia|)
+        Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
+        //O(|materia|)
+        materias.obtener(materia).getAlumnos().agregarAdelante(estudiante);
     }
 
     public void agregarDocente(CargoDocente cargo, String carrera, String materia){
