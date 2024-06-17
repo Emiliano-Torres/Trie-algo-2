@@ -86,7 +86,25 @@ public class SistemaSIU {
     }
 
     public boolean excedeCupo(String materia, String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        int cant_alumnos = inscriptos(materia, carrera);
+        int cupo = cupo(materia, carrera);
+        return cant_alumnos > cupo;
+
+    }
+
+    public int cupo(String materia, String carrera) {
+        int[] plantelDocente = plantelDocente(materia, carrera);
+        plantelDocente[0] = plantelDocente[0]*250;
+        plantelDocente[1] = plantelDocente[1]*100;
+        plantelDocente[2] = plantelDocente[2]*20;
+        plantelDocente[3] = 30*plantelDocente[3];
+        int res = plantelDocente[0];
+        for (int i : plantelDocente) {
+            if (i < res) {
+                res = i;
+            }
+        }
+        return res;
     }
 
     public String[] carreras(){
@@ -98,6 +116,7 @@ public class SistemaSIU {
     }
 
     public int materiasInscriptas(String estudiante){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        Alumno alumno = this.alumnos.obtener(estudiante);
+        return alumno.obtenerInscripciones();
     }
 }
