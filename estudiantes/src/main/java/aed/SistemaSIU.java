@@ -25,6 +25,7 @@ public class SistemaSIU {
             O(Sumatoria desde 1 a |C| de (|c|+|Mc|  porque es cota superior,
             porque vale esto |Carreras| >= |Nm|)*/
             for (ParCarreraMateria par : infomateria.getParesCarreraMateria()) {
+                //tomamos como peor caso que la carrera no este en el sistema
                 //O(|c|+|Mc|)              
                 if (carreras.pertenece(par.getCarrera())) {
 
@@ -41,58 +42,78 @@ public class SistemaSIU {
                 }
         }
     }
-
+    //O(|carrera|+|materia|)
     public void inscribir(String estudiante, String carrera, String materia){
-        //O(|carrera|+|materia|+7) = O(|carrera|+|materia|)
+        //O(1)
         Alumno inscripto=this.alumnos.obtener(estudiante);
         inscripto.aumentarInscripciones();
 
-        //O(|carrera|+|materia|)
+        //O(|carrera|)
         Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
         //O(|materia|)
         materias.obtener(materia).getAlumnos().agregarAdelante(estudiante);
     }
-
+    //O(|carrera|+|materia|)
     public void agregarDocente(CargoDocente cargo, String carrera, String materia){
+        //O(|carrera|)
         Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
+        //O(|materia|)
         int[] profesores = materias.obtener(materia).getProfesores();
+        //O(1)
         if (cargo==CargoDocente.AY2) {
             profesores[3]++;
         }
+        //O(1)
         if (cargo==CargoDocente.AY1) {
             profesores[2]++;
         }
+        //O(1)
         if (cargo==CargoDocente.JTP) {
             profesores[1]++;
         }
+        //O(1)
         if (cargo==CargoDocente.PROF) {
             profesores[0]++;
         }	    
     }
-
+    //O(|carrera|+|materia|)
     public int[] plantelDocente(String materia, String carrera){
+        //O(|carrera|)
         Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
+        //O(|materia|)
         return materias.obtener(materia).getProfesores();
     }
-
+    // O(|carrera| + |nombre de la materia|)
     public void cerrarMateria(String materia, String carrera){
-        throw new UnsupportedOperationException("Método no implementado aún");	    
+        // O(|carrera| + |nombre de la materia|)
+        InfoMateria infomateria = this.carreras.obtener(carrera).getMaterias().obtener(materia).getInfoMateria();
+        // O(|carrera| + |nombre de la materia|)
+        Lista_enlazada<String> lista = this.carreras.obtener(carrera).getMaterias().obtener(materia).getAlumnos();
+        // O(Sumatoria de O(1), por la cantidad de estudiantes en la materia Em)
+        for (int i = 0; i < lista.longitud(); i++){
+            // O(1)
+            String lu = (String)lista.obtener(i);
+            alumnos.obtener(lu).reducirInscripciones();
+        }
+        // O(Sumatoria de (|carrera| + |nombre de la materia|) |Nm| veces))
+        for (ParCarreraMateria par : infomateria.getParesCarreraMateria()){
+            // O(|carrera| + |nombre de la materia|)
+            carreras.obtener(par.getCarrera()).getMaterias().borrar(par.getNombreMateria());
+        } 
     }
 
+    //O(|carrera|+|Materia|)
     public int inscriptos(String materia, String carrera){
+        //O(|carrera|)
         Trie <Materia> materias = this.carreras.obtener(carrera).getMaterias();
+        //O(|materia|)
         int cant_alumnos = materias.obtener(materia).getAlumnos().longitud();
+        //O(1)
         return cant_alumnos;
     }
-<<<<<<< HEAD
     
      // O(|carrera|+|materia|)
      public boolean excedeCupo(String materia, String carrera){
-=======
-
-    // O(|carrera|+|materia|)
-    public boolean excedeCupo(String materia, String carrera){
->>>>>>> 2049db7afb8adbafacf20b1d7da40f29811a122f
         //O(|carrera|+|materia|)
         int cant_alumnos = inscriptos(materia, carrera);
         //O(|carrera|+|materia|)
@@ -117,6 +138,7 @@ public class SistemaSIU {
         }
         return res;
     }
+    
     public String[] carreras(){
         return carreras.toStringArray();
     }
