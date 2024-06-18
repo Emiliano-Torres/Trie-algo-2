@@ -153,7 +153,7 @@ public class Trie<T>{
         return res;
         // Finalmente O(lista.longitud() + Sumatoria desde 1 a |A| de (|string|) = O (Sumatoria desde 1 a |A| de (|string|)
     }
-    
+
 
 
     // O(Sumatoria desde 1 a |A| de (|string|)

@@ -86,7 +86,7 @@ public class SistemaSIU {
         //O(|materia|)
         return materias.obtener(materia).getProfesores();
     }
-    // O(|carrera| + |nombre de la materia|)
+    // O(|carrera| + |nombre de la materia|+Em+Sumatoria para todo n en Nm de |n|)
     public void cerrarMateria(String materia, String carrera){
         //O(|carrera| + |nombre de la materia|)
         Materia materia_a_borrar=this.carreras.obtener(carrera).getMaterias().obtener(materia);
@@ -102,10 +102,15 @@ public class SistemaSIU {
         }
         //O(1)
         Lista_enlazada<Carrera> carreras_donde_borrar= materia_a_borrar.getCarreras();
-        // Sumartoria para todo n en Nm de |n|
-        for (int i=0; i<carreras_donde_borrar.longitud(); i++){
-            Carrera carrera_actual = carreras_donde_borrar.obtener(i);
-            carrera_actual.getMaterias().borrar(Lista_nombres[ Lista_nombres.length-1-i].getNombreMateria());             
+        // Sumartoria para todo n en Nm de |n| + |Nm|
+        int cantidad_de_carreras_a_borrar=carreras_donde_borrar.longitud();
+        for (int i=0; i<cantidad_de_carreras_a_borrar; i++){
+            //O(1)
+            Carrera carrera_actual = carreras_donde_borrar.obtenerUltimo();
+            //O(|Nm|)
+            carrera_actual.getMaterias().borrar(Lista_nombres[i].getNombreMateria());             
+            //O(1)
+            carreras_donde_borrar.eliminar_ultimo();
         } 
     }
 

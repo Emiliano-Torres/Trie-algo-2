@@ -56,7 +56,23 @@ public class Lista_enlazada<T> {
         
         this.tamaño+=1;
     }
+    public void eliminar_ultimo(){
+        if(ultimo!=primer){
+            ultimo=ultimo.prev;
+            ultimo.sig=null;
+            tamaño--;
+        }
+        else{
+            primer=null;
+            ultimo=null;
+            tamaño=0;
+        }
+        
 
+    }
+    public T obtenerUltimo(){
+        return ultimo.valor;
+    }
     public T obtener(int i) {
         T res;
         if (i==0){
