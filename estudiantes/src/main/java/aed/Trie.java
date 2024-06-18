@@ -1,9 +1,9 @@
 package aed;
-
+//Inv rep: 
 public class Trie<T>{
 
     private Nodo_Trie<T> raiz;
-
+    //INV rep de la clase Nodo: El constructor solo crea instancias validas 
     private class Nodo_Trie<T> {
 
         // Array para los hijos (256 signos del codigo ASCII)

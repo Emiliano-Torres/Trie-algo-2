@@ -1,5 +1,9 @@
 package aed;
-
+/*
+ * INV REP: Inscripciones>=0
+ *          LU esta acotado
+ *          
+*/
 public class Alumno {
     
     // Cantidad de materias en las que esta inscripto el alumno

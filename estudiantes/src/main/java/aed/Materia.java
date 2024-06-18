@@ -1,5 +1,9 @@
 package aed;
-
+/*INV REP : (para todo i entero)(0<=i<=|profesores|->L profesores[i]>=0)
+            |infomateria|>0
+            |carreras|>=0
+            |alumnos|>=0
+*/
 public class Materia {
     private Lista_enlazada<Carrera> carreras;
     private InfoMateria info;
