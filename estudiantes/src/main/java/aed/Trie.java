@@ -1,9 +1,18 @@
 package aed;
-//Inv rep: 
-public class Trie<T>{
 
+//Inv rep: raíz es una instancia válida de Nodo_Trie.
+public class Trie<T>{
+    
     private Nodo_Trie<T> raiz;
-    //INV rep de la clase Nodo: El constructor solo crea instancias validas 
+    
+    /*
+    INV rep de la clase Nodo: hijos.length == 256.
+                        paraTodo i in 0..255: hijos[i] == null || hijos[i] es instancia de Nodo_Trie
+                        nodo es final de una palabra si y solo si nodo.significado != null.
+                        nodo no es final de una palabra si y solo si nodo.significado == null.
+                        forall hijo in hijos: hijo == null || hijo cumple todo lo que dice arriba.
+    */
+
     private class Nodo_Trie<T> {
 
         // Array para los hijos (256 signos del codigo ASCII)
