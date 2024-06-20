@@ -96,7 +96,7 @@ public class SistemaSIU {
         //O(|carrera| + |nombre de la materia|)
         Materia materia_a_borrar=this.carreras.obtener(carrera).getMaterias().obtener(materia);
         //O(1)
-        ParCarreraMateria[] Lista_nombres = materia_a_borrar.getInfoMateria().getParesCarreraMateria(); //algo1
+        ParCarreraMateria[] Lista_nombres = materia_a_borrar.getInfoMateria().getParesCarreraMateria();
         //O(1)
         Lista_enlazada<String> lista = materia_a_borrar.getAlumnos();
         //O(Em)
@@ -143,20 +143,31 @@ public class SistemaSIU {
 
     }
 
-    // O(|carrera|+|materia| + x) con x siendo una constaste acotada. Entonces eso es igual a O(|c|+|m|)
+    // O(|c|+|m|)
     public int cupo(String materia, String carrera) {
+        // O(|c|+|m|)
         int[] plantelDocente = plantelDocente(materia, carrera);
+        // O(1)
         int[] array = new int[4];
+        // O(1)
         array[0] = plantelDocente[0]*250;
+        // O(1)
         array[1] = plantelDocente[1]*100;
+        // O(1)
         array[2] = plantelDocente[2]*20;
+        // O(1)
         array[3] = 30*plantelDocente[3];
+        // O(1)
         int res = array[0];
+        // O(1) porque el bucle se repite una cantidad acotada de veces
         for (int i : array) {
+            // O(1)
             if (i < res) {
+                // O(1)
                 res = i;
             }
         }
+        // O(1)
         return res;
     }
     
@@ -182,6 +193,7 @@ public class SistemaSIU {
     public int materiasInscriptas(String estudiante){
         // O(1) pues la LU de cada estudiante esta acotada
         Alumno alumno = this.alumnos.obtener(estudiante);
+        // O(1)
         return alumno.obtenerInscripciones();
     }
 }
