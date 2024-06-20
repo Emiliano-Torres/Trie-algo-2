@@ -1,5 +1,18 @@
 package aed;
 
+/* INV REP:
+ * tamaño >= 0
+ * tamaño == #Nodos
+ * primer.prev == null
+ * ultimo.sig == null
+ * (para todo nodo N)(para todo nodo M)(para todo nodo Ñ)(((si N.sig == Ñ y M.sig == Ñ , entonces N == M)))
+ * (para todo nodo N)(para todo nodo M)(para todo nodo Ñ)(((si N.prev == Ñ y M.prev == Ñ , entonces N == M)))
+ * (para todo nodo N)(existe un entero I)((Si N != "ultimo" , entonces partiendo desde N, .sig I veces alcanza al nodo "ultimo"))
+ * (para todo nodo N)(existe un entero I)((Si N != "primer" , entonces partiendo desde N, .prev I veces alcanza al nodo "primer"))
+ * (para todo nodo N)(N.valor != null)
+ * 
+*/
+
 public class Lista_enlazada<T> {
     private Nodo primer;
     private Nodo ultimo;
