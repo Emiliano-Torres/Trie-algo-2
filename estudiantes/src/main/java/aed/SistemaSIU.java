@@ -19,18 +19,47 @@ public class SistemaSIU {
     }
     //O(Sumatoria desde 1 a |M| de (Sumatoria desde 1 a |C| de (|c|+|Mc| + E)
     public SistemaSIU(InfoMateria[] infoMaterias, String[] libretasUniversitarias){
+        
         // O(E)
-        for (String libreta : libretasUniversitarias){
+        for (String libreta : libretasUniversitarias) {
+            // Agregar cada estudiante al Trie de alumnos
             Alumno alumno = new Alumno(libreta);
-            this.alumnos.agregar(libreta, alumno);
-        } 
+            alumnos.agregar(libreta, alumno);
+        }
+        
+        for (InfoMateria infoMateria: infoMaterias) {
+            // Iterar sobre cada ParCarreraMateria en InfoMateria
+            Materia materiaNueva = new Materia(infoMateria);
+            Lista_enlazada<Carrera> lista_carreras = materiaNueva.getCarreras();
+            for (ParCarreraMateria par: infoMateria.getParesCarreraMateria()) {
+                String carrera = par.getCarrera();
+                String materia = par.getNombreMateria();
+
+                // Verificar si la carrera ya existe en el trie de carreras
+                if (carreras.pertenece(carrera)) {
+                    // Si existe, obtener la carrera y agregar la materia
+                    Carrera carreraExistente = carreras.obtener(carrera);
+                    carreraExistente.getMaterias().agregar(materia, materiaNueva);
+                    lista_carreras.agregarAdelante(carreraExistente);
+                } else{
+                    // Si no existe, crear una nueva carrera y agregar la materia
+                    Carrera nuevCarrera = new Carrera();
+                    nuevCarrera.getMaterias().agregar(materia, materiaNueva);
+                    carreras.agregar(carrera, nuevCarrera);
+                    lista_carreras.agregarAdelante(nuevCarrera);
+                }
+                
+            }
+        }
+
+        /* 
         //O(Sumatoria desde 1 a |M| de (Sumatoria desde 1 a |C| de (|c|+|Mc|) 
         for (int i =0; i<infoMaterias.length;i++){
             Materia materia = new Materia(infoMaterias[i]);
             Lista_enlazada<Carrera> lista_carreras = materia.getCarreras();
-            /*O(Sumatoria desde 1 a |Nm| de (|c|+|Mc|) pero nos quedamos con esta 
-            O(Sumatoria desde 1 a |C| de (|c|+|Mc|  porque es cota superior,
-            porque vale esto |Carreras| >= |Nm|)*/
+            // O(Sumatoria desde 1 a |Nm| de (|c|+|Mc|) pero nos quedamos con esta 
+            // O(Sumatoria desde 1 a |C| de (|c|+|Mc|  porque es cota superior,
+            // porque vale esto |Carreras| >= |Nm|)
             for (ParCarreraMateria par : infoMaterias[i].getParesCarreraMateria()) {
                 //tomamos como peor caso que la carrera no este en el sistema
                 //O(|c|+|Mc|)              
@@ -48,7 +77,7 @@ public class SistemaSIU {
                     lista_carreras.agregarAdelante(carrera);
                 }
                 }
-        }
+        }*/
     }
     //O(|carrera|+|materia|)
     public void inscribir(String estudiante, String carrera, String materia){
