@@ -1,7 +1,6 @@
 package aed;
 /*  INV REP: Todas las ramas del trie alumnos tienen la misma longitud.
              Toda rama de ambos tries termina en un significado, en el trie de alumnos en un objeto de clase Alumno, en el de carreras en un objeto Carrera.
-             Toda rama en el trie de materias que esta en cada carrera, termina en un significado, un objeto  de clase Materia.
              Toda rama tiene al menos un caracter.
              Existe al menos una rama en el trie carreras.
 */
