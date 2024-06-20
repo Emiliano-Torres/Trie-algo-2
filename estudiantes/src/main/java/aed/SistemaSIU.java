@@ -1,6 +1,7 @@
 package aed;
 /*  INV REP: Todas las ramas del trie alumnos tienen la misma longitud.
              Toda rama de ambos tries termina en un significado, en el trie de alumnos en un objeto de clase Alumno, en el de carreras en un objeto Carrera.
+             Toda rama en el trie de materias que esta en cada carrera, termina en un significado, un objeto  de clase Materia.
              Toda rama tiene al menos un caracter.
              Existe al menos una rama en el trie carreras.
 */
@@ -41,7 +42,6 @@ public class SistemaSIU {
                     
                 }
                 else{
-
                     Carrera carrera = new Carrera();
                     this.carreras.agregar(par.getCarrera(),carrera);
                     carrera.getMaterias().agregar(par.getNombreMateria(),materia);
@@ -100,10 +100,14 @@ public class SistemaSIU {
         //O(1)
         Lista_enlazada<String> lista = materia_a_borrar.getAlumnos();
         //O(Em)
-        for (int i = 0; i < lista.longitud(); i++){
-            // O(1)
-            String lu = (String)lista.obtener(i);
+        int cantidad_alumnos_a_desinscribir=lista.longitud();
+        for (int i = 0; i < cantidad_alumnos_a_desinscribir; i++){
+            //O(1)
+            String lu = (String)lista.obtenerUltimo();
+            //O(1)
             alumnos.obtener(lu).reducirInscripciones();
+            //O(1)
+            lista.eliminar_ultimo();
         }
         //O(1)
         Lista_enlazada<Carrera> carreras_donde_borrar= materia_a_borrar.getCarreras();
