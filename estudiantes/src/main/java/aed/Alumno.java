@@ -1,6 +1,6 @@
 package aed;
 /*
- * INV REP: Inscripciones>=0
+ * INV REP: |M| > Inscripciones >=0 con M siendo el conjunto de todas las materias
  *          LU esta acotado
  *          
 */
