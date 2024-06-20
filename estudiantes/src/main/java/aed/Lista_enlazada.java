@@ -54,6 +54,20 @@ public class Lista_enlazada<T> {
         this.tamaño+=1;
     }
 
+    public void agregarAtras(T elem) {
+        Nodo nuevo_nodo = new Nodo(elem);
+        if(tamaño==0){
+            this.primer=nuevo_nodo;
+            this.ultimo=nuevo_nodo;
+        }
+        else{
+            this.ultimo.sig=nuevo_nodo;
+            nuevo_nodo.prev=this.ultimo;
+            this.ultimo=nuevo_nodo;
+        }
+        
+        this.tamaño+=1;
+    }
     public void eliminar_ultimo(){
         if(ultimo!=primer){
             ultimo=ultimo.prev;
@@ -71,5 +85,19 @@ public class Lista_enlazada<T> {
     public T obtenerUltimo(){
         return ultimo.valor;
     }
-
+    public T obtener(int i) {
+        T res;
+        if (i==0){
+           res= this.primer.valor;	
+        }
+        else{
+            Nodo actual=this.primer;
+            for (int j = 0; j < i; j++) {
+                actual=actual.sig;   
+            }
+            
+            res= actual.valor;
+        }
+        return res;
+    }
 }
