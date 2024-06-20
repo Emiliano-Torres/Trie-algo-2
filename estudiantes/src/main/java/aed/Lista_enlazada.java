@@ -10,7 +10,6 @@ package aed;
  * (para todo nodo N)(existe un entero I)((Si N != "ultimo" , entonces partiendo desde N, .sig I veces alcanza al nodo "ultimo"))
  * (para todo nodo N)(existe un entero I)((Si N != "primer" , entonces partiendo desde N, .prev I veces alcanza al nodo "primer"))
  * (para todo nodo N)(N.valor != null)
- * 
 */
 
 public class Lista_enlazada<T> {
