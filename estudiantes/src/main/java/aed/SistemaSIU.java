@@ -39,6 +39,13 @@ public class SistemaSIU {
          * Luego:
          *  
          * O(Sumatoria m en M de(sumatoria n en Nm de(|c|))=O(Sumatoria c en C de(|c|*|Mc|)
+         * 
+         * 
+         * Reemplazando en el primer renglón, obtenemos que:
+         * 
+         * O(Sumatoria m en M de(sumatoria n en Nm de(|c|)) + sumatoria m en M de(sumatoria n en Nm de(|n|)) = O(Sumatoria c en C de(|c|*|Mc|) + sumatoria m en M de(sumatoria n en Nm de(|n|))
+         * 
+         * Lo que nos asegura la complejidad requerida en la definición de la función
         */
         for (InfoMateria infoMateria: infoMaterias/*|M|*/) {
             // Iterar sobre cada ParCarreraMateria en InfoMateria
