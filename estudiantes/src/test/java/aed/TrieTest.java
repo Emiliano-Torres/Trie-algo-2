@@ -57,7 +57,8 @@ public class TrieTest {
         assertTrue(trie.pertenece("nuevos"));
         assertTrue(trie.pertenece("nueva"));
         assertFalse(trie.pertenece("nuevo"));
+        
+        trie.borrar("Manuelita vivía en Pehuajó");
+        
     }
-
-
 }
