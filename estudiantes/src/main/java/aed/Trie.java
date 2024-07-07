@@ -180,7 +180,7 @@ public class Trie<T>{
     public String[] toStringArray() {
 
         // O(1)
-        this.indice = 0;       
+        this.indice = 0;
         // O(1)
         String[] arr = new String[cant_significados];
         // O(1)
