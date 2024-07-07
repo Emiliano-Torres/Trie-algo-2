@@ -116,13 +116,14 @@ public class SistemaSIU {
     // O(|c| + |n| + Em + Sumatoria para todo n en Nm de |n|)
     public void cerrarMateria(String materia, String carrera){
         
-        Materia materia_a_borrar=this.carreras.obtener(carrera).getMaterias().obtener(materia); //O(|c| + |n|)
+        Materia materia_a_borrar = this.carreras.obtener(carrera).getMaterias().obtener(materia); //O(|c| + |n|)
         
-        ParCarreraMateria[] Lista_nombres = materia_a_borrar.getInfoMateria().getParesCarreraMateria();  //O(1)
+        ParCarreraMateria[] lista_nombres = materia_a_borrar.getInfoMateria().getParesCarreraMateria();  //O(1)
        
         Lista_enlazada<String> lista = materia_a_borrar.getAlumnos(); //O(1)
         
         int cantidad_alumnos_a_desinscribir=lista.longitud(); //O(1)
+        
         for (int i = 0; i < cantidad_alumnos_a_desinscribir; i++){ //O(Em)
             
             String lu = (String)lista.obtenerUltimo(); //O(1)
@@ -132,12 +133,12 @@ public class SistemaSIU {
             lista.eliminar_ultimo(); //O(1)
         }
         
-        Lista_enlazada<Carrera> carreras_donde_borrar= materia_a_borrar.getCarreras(); //O(1)
-        int cantidad_de_carreras_a_borrar=carreras_donde_borrar.longitud();
+        Lista_enlazada<Carrera> carreras_donde_borrar = materia_a_borrar.getCarreras(); //O(1)
+        int cantidad_de_carreras_a_borrar = carreras_donde_borrar.longitud();
         for (int i=0; i<cantidad_de_carreras_a_borrar; i++){ // Sumartoria para todo n en Nm de |n| 
            
             Carrera carrera_actual = carreras_donde_borrar.obtenerUltimo(); //O(1)
-            carrera_actual.getMaterias().borrar(Lista_nombres[i].getNombreMateria()); //O(|n|)             
+            carrera_actual.getMaterias().borrar(lista_nombres[i].getNombreMateria()); //O(|n|)             
             carreras_donde_borrar.eliminar_ultimo();  //O(1)
         } 
     }
@@ -156,37 +157,18 @@ public class SistemaSIU {
      public boolean excedeCupo(String materia, String carrera){
         
         int cant_alumnos = inscriptos(materia, carrera); //O(|c|+|m|)
-        int cupo = cupo(materia, carrera); //O(|c|+|m|)
-        return cant_alumnos > cupo;
-
-    }
-
-    // O(|c|+|m|)
-    public int cupo(String materia, String carrera) {
         
         int[] plantelDocente = plantelDocente(materia, carrera); // O(|c|+|m|)
-        
-        int[] array = new int[4]; // O(1)
-       
-        array[0] = plantelDocente[0]*250; // O(1)
-       
-        array[1] = plantelDocente[1]*100; // O(1)
-        
-        array[2] = plantelDocente[2]*20; // O(1)
-        
-        array[3] = 30*plantelDocente[3]; // O(1)
-       
-        int res = array[0];
-        // O(1) porque el bucle se repite una cantidad acotada de veces
-        for (int i : array) {
-            
-            if (i < res) {  // O(1)
-               
-                res = i;  // O(1)
-            }
+
+        // O(1)
+        if ((cant_alumnos > plantelDocente[0]*250) || (cant_alumnos > plantelDocente[1]*100) || (cant_alumnos > plantelDocente[2]*20) || (cant_alumnos > plantelDocente[3]*30)){
+            return true; // O(1)
         }
-        return res;
+        else{
+            return false; // O(1)
+        }
     }
+
     
     // O(Sumatoria c en |C| de (|c|)
     public String[] carreras(){

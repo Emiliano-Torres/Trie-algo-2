@@ -5,6 +5,7 @@ public class Trie<T>{
     
     private Nodo_Trie<T> raiz;
     private int cant_significados;
+    private int indice;
     
     /*
     INV rep de la clase Nodo: hijos.length == 256.
@@ -24,8 +25,8 @@ public class Trie<T>{
         private T significado;
         //cuenta todos los nodos hijos de cada nodo
         private int contador_hijos;
-         // Constructor.  O(1)
-         public Nodo_Trie() {
+        // Constructor.  O(1)
+        public Nodo_Trie() {
             hijos = new Nodo_Trie[256];
             significado = null;
             contador_hijos=0;
@@ -175,36 +176,42 @@ public class Trie<T>{
 
 
     // O(Sumatoria desde 1 a |A| de (|string|)
-    // Con "A" el Trie y "string" el camino (clave)
+    // Con "A" el Trie (y |A| la cantidad de claves en el diccionario), y "string" el camino (clave)
     public String[] toStringArray() {
-       
-       int indice = 0;
+
+        // O(1)
+        this.indice = 0;       
         // O(1)
         String[] arr = new String[cant_significados];
         // O(1)
         String camino = "";
         
         // O(Sumatoria desde 1 a |A| de (|string|)
-        toListRecursivo(raiz, arr, camino, indice);
+        toListRecursivo(raiz, arr, camino);
         
+        // O(1)
+        this.indice = 0;
+
         // O(1)
         return arr;
         // Finalmente O(lista.longitud() + Sumatoria desde 1 a |A| de (|string|) = O (Sumatoria desde 1 a |A| de (|string|)
     }
+    
 
     // O(Sumatoria desde 1 a |A| de (|string|)
-    private void toListRecursivo(Nodo_Trie<T> nodo, String[] arr, String camino, int indice){
+    private void toListRecursivo(Nodo_Trie<T> nodo, String[] arr, String camino){
         
         // O(1)
         if (nodo.significado != null){
-        // O(1)
-        arr[indice] = camino;
-        indice++;
+            // O(1)
+            arr[this.indice] = camino;
+            // O(1)
+            this.indice++;
         }
 
         // O(Sumatoria desde 1 a |A| de (|string|)
         for (int i=0; i<256; i++){
-            // O(Sumatoria desde 1 a |A| de (|string|) = O(Sumatoria desde 1 a |A| de (|string|)
+            // O(Sumatoria desde 1 a |A| de (|string|)
             if (nodo.obtenerHijos()[i] != null){
                 // O(1)
                 Nodo_Trie<T> hijo = nodo.obtenerHijos()[i];
@@ -215,7 +222,7 @@ public class Trie<T>{
                 // O(Sumatoria desde 1 a |B| de (|sub-string|)
                 // Con "B" el "Sub-Trie" y "sub-string" el camino restante (parte de la clave que falta)
                 // Nótese que |B| (osea la cantidad de claves en el subconjunto), y |sub-string| se achican a lo largo de la recursión
-                toListRecursivo(hijo, arr, nuevo_camino, indice);
+                toListRecursivo(hijo, arr, nuevo_camino);
             }
         }
     }
